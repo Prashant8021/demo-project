@@ -1,1 +1,2 @@
-Welcom to GitHub !! 
+Welcome to GitHub !!
+Hi GitHub
