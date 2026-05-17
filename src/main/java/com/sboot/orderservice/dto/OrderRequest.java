@@ -14,7 +14,7 @@ public class OrderRequest {
 
     @NotNull(message = "quantity is required")
     @Positive(message = "quantity must be greater than zero")
-    private Integer quantity;
+    private int quantity;
 
     public OrderRequest() {
     }
