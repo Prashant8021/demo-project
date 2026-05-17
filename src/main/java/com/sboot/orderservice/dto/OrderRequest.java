@@ -17,7 +17,7 @@ public class OrderRequest {
 
     @NotNull(message = "quantity is required")
     @Positive(message = "quantity must be greater than zero")
-    private Integer quantity;
+    private int quantity;
 
     @NotNull(message = "price is required")
     @DecimalMin(value = "0.01", message = "price must be greater than zero")
