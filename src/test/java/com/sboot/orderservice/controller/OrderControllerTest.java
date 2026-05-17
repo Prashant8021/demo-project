@@ -10,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -22,8 +25,21 @@ class OrderControllerTest {
         OrderController controller = new OrderController(orderService);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
-        OrderRequest request = new OrderRequest("Prashant", "Laptop", 2);
-        OrderResponse response = new OrderResponse(1L, "Prashant", "Laptop", 2, "Order created successfully");
+        // include price in request (required)
+        OrderRequest request = new OrderRequest("Prashant", "Laptop", 2, BigDecimal.valueOf(1000));
+        // construct response that matches the new OrderResponse signature
+        OrderResponse response = new OrderResponse(
+                1L,
+                "Prashant",
+                "Laptop",
+                2,
+                BigDecimal.valueOf(1000),            // price
+                BigDecimal.valueOf(2000),            // totalAmount
+                "PENDING",                           // status
+                LocalDateTime.now(),                 // createdDate
+                null,                                // updatedDate
+                "Order created successfully"         // message
+        );
 
         Mockito.when(orderService.createOrder(Mockito.any(OrderRequest.class))).thenReturn(response);
 
