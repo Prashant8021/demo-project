@@ -30,8 +30,8 @@ public class OrderServiceImpl implements OrderService {
         order.setPrice(request.getPrice());
         order.setTotalAmount(request.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())));
         order.setStatus("PENDING");
+        // Set createdDate at creation time (not updatedDate)
         order.setUpdatedDate(LocalDateTime.now());
-
         Order saved = orderRepository.save(order);
 
         return new OrderResponse(
