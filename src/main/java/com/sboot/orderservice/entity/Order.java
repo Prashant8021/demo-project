@@ -12,7 +12,7 @@ public class Order {
 
     private String customerName;
     private String productName;
-    private Integer quantity;
+    private int quantity;
 
     public Order() {
     }
