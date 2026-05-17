@@ -7,6 +7,8 @@ import com.sboot.orderservice.repository.OrderRepository;
 import com.sboot.orderservice.service.OrderService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,10 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomerName(request.getCustomerName());
         order.setProductName(request.getProductName());
         order.setQuantity(request.getQuantity());
+        order.setPrice(request.getPrice());
+        order.setTotalAmount(request.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())));
+        order.setStatus("PENDING");
+        order.setUpdatedDate(LocalDateTime.now());
 
         Order saved = orderRepository.save(order);
 
@@ -33,6 +39,11 @@ public class OrderServiceImpl implements OrderService {
                 saved.getCustomerName(),
                 saved.getProductName(),
                 saved.getQuantity(),
+                saved.getPrice(),
+                saved.getTotalAmount(),
+                saved.getStatus(),
+                saved.getCreatedDate(),
+                saved.getUpdatedDate(),
                 "Order created successfully"
         );
     }
@@ -46,6 +57,11 @@ public class OrderServiceImpl implements OrderService {
                         order.getCustomerName(),
                         order.getProductName(),
                         order.getQuantity(),
+                        order.getPrice(),
+                        order.getTotalAmount(),
+                        order.getStatus(),
+                        order.getCreatedDate(),
+                        order.getUpdatedDate(),
                         "Order fetched successfully"
                 ))
                 .collect(Collectors.toList());
@@ -61,6 +77,11 @@ public class OrderServiceImpl implements OrderService {
                 order.getCustomerName(),
                 order.getProductName(),
                 order.getQuantity(),
+                order.getPrice(),
+                order.getTotalAmount(),
+                order.getStatus(),
+                order.getCreatedDate(),
+                order.getUpdatedDate(),
                 "Order fetched successfully"
         );
     }
